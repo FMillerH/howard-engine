@@ -8,9 +8,14 @@ does not require editing C++ or recompiling.
 No parsing or UI dependencies — raylib is the only external library, and CMake fetches it
 automatically.
 
-> **Status:** Active work in progress and a learning project. The parser, menu construction,
-> scene graph, and input binding are 'working' in the sense that I will soon be able to add
+> **Status:** Active work in progress and a learning project.
+> The parser, menu construction, scene graph, and input binding
+> are 'working' in the sense that I will soon be able to add
 > the ability to construct new menus within the program.
+> As of now, many of the 'user interaction' components merely
+> exist as ideas within the code, and so much of this is simply
+> unfinished. I encourage exploration of the custom UI environment,
+> as well as the HWD parser, which interacts with the .hwd files.
 > See [Repository layout](#repository-layout)
 
 ---
