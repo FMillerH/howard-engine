@@ -76,8 +76,8 @@ Requires CMake 3.16+, a C++20 compiler, and an internet connection on the first 
 (raylib 5.5 is fetched automatically).
 
 ```bash
-git clone https://github.com/FMillerH/h03.01.git
-cd h03.01
+git clone https://github.com/FMillerH/howard-engine.git
+cd howard-engine
 cmake -B build
 cmake --build build
 ./build/H03_01
