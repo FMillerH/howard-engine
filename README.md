@@ -71,7 +71,8 @@ structure instead of needing reverse links declared in the file.
 
 **Input.** `Controller` holds an `unordered_map<int, std::function<void()>>` from raylib key
 codes to actions. `scanKeyBindings()` walks the map once per frame, which keeps per-frame
-polling in one place rather than spread through the game loop.
+polling in one place rather than spread through the game loop. This will be more fleshed out
+in a future build.
 
 ---
 
