@@ -9,8 +9,9 @@ No parsing or UI dependencies — raylib is the only external library, and CMake
 automatically.
 
 > **Status:** Active work in progress and a learning project. The parser, menu construction,
-> scene graph, and input binding are working. See [Repository layout](#repository-layout)
-> for which directories are the framework and which are experiments.
+> scene graph, and input binding are 'working' in the sense that I will soon be able to add
+> the ability to construct new menus within the program.
+> See [Repository layout](#repository-layout)
 
 ---
 
