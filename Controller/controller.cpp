@@ -10,7 +10,7 @@ void Controller::initKeyBindings(const int k, std::function<void()> f) {
 
 void Controller::scanKeyBindings() {
     for (auto& [key, func] : keyBindings) {
-        if (IsKeyDown(key)) { func(); }
+        if (IsKeyPressed(key)) { func(); }
     }
 }
 

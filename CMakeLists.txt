@@ -68,6 +68,10 @@ add_executable(H03_01 main.cpp
         Windows/Path02/BouncingSquare/Physics/physics.h
         Windows/Exceptions/fail.cpp
         Windows/Exceptions/fail.h
+        Windows/PathSandbox/pathSandbox.cpp
+        Windows/PathSandbox/pathSandbox.h
+        Application/application.cpp
+        Application/application.h
 )
 
 #target_compile_options(H03_01 PRIVATE -fsanitize=address -fsanitize=undefined)

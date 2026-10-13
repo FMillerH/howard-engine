@@ -40,6 +40,7 @@ void UIenv::setSharedPtx(std::shared_ptr<HWD> ptx) { parser = std::move(ptx); }
 
 void UIenv::update() {
     mouse = GetMousePosition();
+    controller.scanKeyBindings();
 
     if (currentMenu == nullptr) {
 
@@ -102,7 +103,7 @@ void UIenv::processInput() {
     if (IsMouseButtonPressed(1)) {
         std::cout << "button info here" << std::endl;
 
-        process();
+        // process();
 
         std::cout << currentMenu->getPreSelectedButton()->getConnectsToMenu() << std::endl;
     }
@@ -151,7 +152,9 @@ void UIenv::goForward() {
     /*PLZFIX: TEST_B2, despite not being assigned a menu, is able to connect to MENU::SELECT because its name does not
      * exist in the navigation table, so it defaults to GOTO ELSE. It's the MENU that's connected to MENU::SELECT, not
      * the button. This is not a program-breaking issue, but it proves that there is too much bullshit code laying
-     * around. */
+     * around.
+     * NOTE: The above has been solved, but the Button class has yet to be simplified.
+     */
 
 
     menuStack.push(currentMenu->getNext());
@@ -177,7 +180,7 @@ void UIenv::releaseInputControl() {
 
 bool UIenv::getInputControlStatus() { return isHandlingInputs; }
 
-Menu* UIenv::stackTest() {
+Menu* UIenv::stackTest() { //These two "test" functions don't test anything. They should be renamed.
     return menuStack.top();
 }
 
