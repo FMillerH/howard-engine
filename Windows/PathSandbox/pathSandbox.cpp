@@ -24,8 +24,6 @@ void runSandboxPath() {
 
 
 
-
-
         BeginDrawing();
         ClearBackground(BLACK);
 

@@ -44,6 +44,11 @@ void UIenv::update() {
 
     if (currentMenu == nullptr) {
 
+        if (menuStack.empty()) {
+            std::cerr << "[FATAL]: Menu Stack is Empty." << std::endl;
+            return;
+        }
+
         if (menuMap.empty()) {
             std::cerr << "Error Code [35]: UIenv.menus does not contain an existing menu\n" << std::endl;
             exit(35);
@@ -68,7 +73,7 @@ void UIenv::draw() {
 void UIenv::processInput() {
     if (IsMouseButtonPressed(0)) {
 
-      // __builtin_debugtrap(); //this will CRASH the program if it is not commented out
+       //__builtin_debugtrap(); //this will CRASH the program if it is not commented out
 
         if (currentMenu->getPreSelectedButton() == nullptr) { return; } /* wrong. well... actually this is fine, but the rest is wrong */
 
@@ -163,7 +168,16 @@ void UIenv::goForward() {
 }
 
 void UIenv::goBack() {
+   // __builtin_debugtrap();
+
+
     menuStack.pop();
+
+    if (menuStack.empty()) {
+        std::cerr << "[FATAL] menu stack is empty" << std::endl;
+        exit(51);
+    }
+
     currentMenu = menuStack.top();
 }
 
@@ -171,8 +185,10 @@ void UIenv::acquireInputControl() {
     isHandlingInputs = true;
 }
 
-void UIenv::releaseInputControl() {
-    menuStack = {};
+void UIenv::releaseInputControl() { //this is meant to pass input handling to a scene manager. If a scene manager does not exist, the program will crash.
+
+
+    menuStack = {}; //emptied the menuStack, but if a menu is still present, crash
     isHandlingInputs = false;
 
     if (onRelease) { onRelease(); }

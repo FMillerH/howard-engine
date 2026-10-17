@@ -9,7 +9,6 @@
 class UIenv {
 private:
     bool isHandlingInputs;
-
     Controller controller;
 
     std::unique_ptr<Block> blk = nullptr;
