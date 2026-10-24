@@ -36,6 +36,29 @@ void UIenv::init0() {
     currentMenu->setVisible();
 }
 
+void UIenv::init0(const std::string& fileName) {
+    if (fileName.empty()) {
+        std::cerr << "no files could be found" << std::endl;
+        return;
+    }
+
+    auto hwd = std::make_unique<HWD>();
+    blk = hwd->parseFile(fileName, "MENU*");
+    hwd.reset();
+
+    for (auto& [name, labels] : blk->labelMap) {
+        menuMap.try_emplace(name, DefaultUI::buildDefaultMenu(name, labels));
+        labels.clear();
+    }
+
+    if (!blk->requests.empty()) { analyzeRequests(); }
+
+    menuStack.push(menuMap["MAIN"].get());
+    currentMenu = menuStack.top();
+
+    currentMenu->setVisible();
+}
+
 void UIenv::setSharedPtx(std::shared_ptr<HWD> ptx) { parser = std::move(ptx); }
 
 void UIenv::update() {

@@ -32,6 +32,7 @@ public:
     ~UIenv();
 
     void init0();
+    void init0(const std::string& fileName);
     void setSharedPtx(std::shared_ptr<HWD> ptx);
     void update();
     void draw();
