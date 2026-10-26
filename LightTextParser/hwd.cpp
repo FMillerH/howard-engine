@@ -106,9 +106,13 @@ std::string HWD::findKeyInLine(std::string_view sv) { //currently returning empt
 
         std::string_view s = "REQUEST!";
         sv.remove_prefix(s.size());
-        auto arr = splitConditional(sv, "->");
-        blk->requests.push_back(arr);
-        if (ready) { ready(arr[0], arr[3]); } //for now, should NOT return true for menu.hwd files
+
+        std::string s1 = std::string(sv);
+
+        auto correctedArr = splitProperConditional(s1);
+
+        blk->requests.push_back(correctedArr);
+        if (ready) { ready(correctedArr[0], correctedArr[3]); } //for now, should NOT return true for menu.hwd files
 
         return key;
     }
@@ -166,43 +170,6 @@ std::array<std::string, 2> HWD::split(const std::string& ln, const char c) {
     return tmp;
 }
 
-std::array<std::string, 4> HWD::splitConditional(std::string_view ln, std::string_view operation) {
-    if (ln.find(operation) == std::string::npos) {
-        std::cerr << "WARNING: Failed to split conditional." << std::endl;
-        return {};
-    }
-
-    std::array<std::string, 4> tmp;
-    std::string_view sv = ln;
-
-    if (operation == "->") { //we already checked for this
-
-        auto delim = sv.find_first_of('-');
-        auto begin = sv.find_first_not_of(' ');
-        auto second = sv.find_first_of('>') + 1;
-
-        if (sv[second + 1] == ' ') { second++; }
-
-        std::string_view lhs = sv.substr(begin, sv.size() - delim);
-        std::string_view rhs = sv.substr(second, sv.size() - delim + 1);
-
-        auto l = splitFIX(lhs, '.');
-        auto r = splitFIX(rhs, '.');
-
-
-        tmp = { std::string(l[0]), std::string(l[1]), std::string(r[0]), std::string(r[1]) };
-        return tmp;
-
-    }
-
-    if (tmp[0].empty()) {
-        std::cerr << "FATAL ERROR: splitConditional() is INCOMPLETE" << std::endl;
-        exit(909);
-    }
-
-    return tmp;
-}
-
 bool HWD::analyzeParserKey(const std::string& keyLine, const std::string &parserKey) {
     std::string_view key = keyLine;
     std::string_view lock = parserKey;
@@ -218,36 +185,41 @@ bool HWD::analyzeParserKey(const std::string& keyLine, const std::string &parser
     return false;
 }
 
-
-std::array<std::string_view, 2> HWD::splitFIX(std::string_view sv, const char c) {
-    std::array<std::string_view, 2> tmp;
-
-    auto begin = sv.find_first_not_of(" \t");
-    auto end = sv.find_last_not_of(" \t");
-
-    sv.remove_suffix(sv.size() - end - 1);
-    sv.remove_prefix(begin);
-
-    begin = sv.find_first_not_of(' ');
-
-    if (sv.find(c) == std::string::npos) {
-
-        auto first = sv.substr(begin, sv.find_first_of(" \t"));
-        if (first.back() == ';') { first.remove_suffix(1); }
-        // auto second = sv.substr(end + 1, sv.size() - end);
-        auto second = first;
-
-        return { first, second };
+std::array<std::string, 4> HWD::splitProperConditional(std::string ln, const std::string& operation) {
+    if (ln.find(operation) == std::string::npos || ln.empty()) {
+        std::array<std::string, 4> nullArr;
+        std::cerr << "[WARNING] Failed to split conditional. Returned empty array." << std::endl;
+        return nullArr;
     }
 
-    auto delim = sv.find(c);
-    auto gap = sv.find_first_of(' ');
+    std::erase_if(ln, [](const unsigned char ch) {
+        return std::isspace(ch);
+    });
 
-    auto first = sv.substr(begin, delim);
-    auto second = sv.substr(delim + 1, gap - (delim + 1));
+    std::string_view sv = ln;
 
-    if (second.back() == ';') { second.remove_suffix(1); }
-    return { first, second };
+    auto a = sv.find('>') + 1;
+    auto b = sv.find(';');
+
+    std::string_view lhs = sv.substr(0, sv.find_first_of('-'));
+    std::string_view rhs = sv.substr(a, b-a);
+
+    auto l = splitFromConditional(lhs);
+    auto r = splitFromConditional(rhs);
+
+    std::array arr = { std::string(l[0]), std::string(l[1]), std::string(r[0]), std::string(r[1]) };
+
+    return arr;
+}
+
+std::array<std::string_view, 2> HWD::splitFromConditional(std::string_view sv) {
+    std::array<std::string_view, 2> arr;
+    auto delim = sv.find('.');
+
+    arr[0] = sv.substr(0, delim);
+    arr[1] = sv.substr(delim + 1, sv.size() - (delim + 1));
+
+    return arr;
 }
 
 const std::string& HWD::getCurrent() {

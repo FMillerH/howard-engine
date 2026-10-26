@@ -53,7 +53,7 @@ void UIenv::init0(const std::string& fileName) {
 
     if (!blk->requests.empty()) { analyzeRequests(); }
 
-    menuStack.push(menuMap["MAIN"].get());
+    menuStack.push(menuMap["TOOLS"].get());
     currentMenu = menuStack.top();
 
     currentMenu->setVisible();

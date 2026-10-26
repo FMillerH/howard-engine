@@ -15,6 +15,8 @@ private:
     std::unique_ptr<Block> blk = std::make_unique<Block>();
     std::ifstream fileStream;
     std::string findKeyInLine(std::string_view sv);
+    std::array<std::string, 4> splitProperConditional(std::string ln, const std::string& operation = "->");
+    std::array<std::string_view, 2> splitFromConditional(std::string_view sv);
 
     std::function<void(std::string str)> onSoloParsed;
     std::function<void()> guess;
