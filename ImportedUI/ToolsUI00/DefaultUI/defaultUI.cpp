@@ -2,7 +2,7 @@
 
 #include "../Placer/placer.h"
 
-std::unique_ptr<Menu> DefaultUI::buildDefaultMenu(const std::string& name, std::vector<std::string>& labels) {
+std::unique_ptr<Menu> DefaultUI::buildDefaultMenu(const std::string& name, std::vector<std::string>& labels, Vector4 dimensions) {
     if (labels.empty()) {
 
         labels = {
@@ -22,7 +22,11 @@ std::unique_ptr<Menu> DefaultUI::buildDefaultMenu(const std::string& name, std::
 
     auto defaultMenu = std::make_unique<Menu>();
 
-    defaultMenu->body = {100, 100, 600, 400};
+    if (dimensions.w == 0 || dimensions.z == 0) {
+        defaultMenu->body = { .x = 100, .y = 100, .width = 600, .height = 400 };
+    }
+    else { defaultMenu->body = { .x = dimensions.x, .y = dimensions.y, .width = dimensions.w, .height = dimensions.z }; }
+
     defaultMenu->setNumButtons(static_cast<int>(labels.size()));
     defaultMenu->setMenuName(name);
 

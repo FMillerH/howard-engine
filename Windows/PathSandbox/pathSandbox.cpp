@@ -13,14 +13,18 @@ void runSandboxPath() {
 
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     SetConfigFlags(FLAG_WINDOW_HIGHDPI);
+    int width = 1000;
+    int height = 800;
 
-    InitWindow(800, 600, "Raylib + C++ Example");
+    InitWindow(width, height, "Raylib + C++ Example");
 
-    std::unique_ptr<Application> app = std::make_unique<Application>();
+    std::unique_ptr<Application> app = std::make_unique<Application>(width, height);
 
     while (!WindowShouldClose()) {
 
-        app->update();
+
+
+        app->update(GetScreenWidth(), GetScreenHeight());
 
 
 

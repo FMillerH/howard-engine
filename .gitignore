@@ -66,9 +66,13 @@ vcpkg_installed/
 
 # test output & cache
 Testing/
+Windows/PathSandbox/Tests
 .cache/
 
 # mac
 .DS_Store
 .DS_Store?
 ._*
+
+#generic txt
+todo.txt

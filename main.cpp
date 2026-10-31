@@ -19,7 +19,6 @@ int main() {
 
 
     runSandboxPath();
-    // splitConditionalTest();
 
     return 0;
 }

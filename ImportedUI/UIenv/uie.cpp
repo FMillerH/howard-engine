@@ -24,7 +24,7 @@ void UIenv::init0() {
     hwd.reset();
 
     for (auto& [name, labels] : blk->labelMap) {
-        menuMap.try_emplace(name, DefaultUI::buildDefaultMenu(name, labels));
+        menuMap.try_emplace(name, DefaultUI::buildDefaultMenu(name, labels, {.x = 0,.y = 0,.z = 0,.w = 0}));
         labels.clear();
     }
 
@@ -47,7 +47,7 @@ void UIenv::init0(const std::string& fileName) {
     hwd.reset();
 
     for (auto& [name, labels] : blk->labelMap) {
-        menuMap.try_emplace(name, DefaultUI::buildDefaultMenu(name, labels));
+        menuMap.try_emplace(name, DefaultUI::buildDefaultMenu(name, labels,  {.x = 0,.y = 0,.z = 0,.w = 0}));
         labels.clear();
     }
 

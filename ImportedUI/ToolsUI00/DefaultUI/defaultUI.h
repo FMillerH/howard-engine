@@ -9,7 +9,7 @@
 class DefaultUI {
 public:
     
-    static std::unique_ptr<Menu> buildDefaultMenu(const std::string& name, std::vector<std::string>& labels);
+    static std::unique_ptr<Menu> buildDefaultMenu(const std::string& name, std::vector<std::string>& labels, Vector4 dimensions);
 
 };
 

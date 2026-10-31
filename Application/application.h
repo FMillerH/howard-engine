@@ -6,12 +6,19 @@
 
 class Application {
 private:
-    std::unique_ptr<UIenv> uie = std::make_unique<UIenv>();
+    std::vector<int> fakeButtons = {1, 2, 3, 4, 5, 6};
+    int currentFakeButton = -1;
+    Rectangle border;
+    Controller controller;
+    bool getWindowDelta();
+
 
 public:
-    Application();
-    void update();
+    Application(float windowWidth, float windowHeight);
+    void update(int w, int h);
     void draw();
+    void initDevController();
+    void setPreSelectedButton(int i);
 };
 
 
