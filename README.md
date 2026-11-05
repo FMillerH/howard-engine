@@ -5,8 +5,8 @@ plain-text format (`.hwd`) and a hand-written parser. Menus, scenes, and the nav
 links between them are declared in data files and loaded at runtime, so changing the UI
 does not require editing C++ or recompiling.
 
-No parsing or UI dependencies — raylib is the only external library, and CMake fetches it
-automatically.
+**No parsing or UI dependencies — raylib is the only external library, and CMake fetches it
+automatically.**
 
 > **Status:** Active work in progress and a learning project.
 > The parser, menu construction, scene graph, and input binding
