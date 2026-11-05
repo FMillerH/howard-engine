@@ -76,24 +76,6 @@ in a future build.
 
 ---
 
-## Building
-
-Requires CMake 3.16+, a C++20 compiler, and an internet connection on the first build
-(raylib 5.5 is fetched automatically).
-
-```bash
-git clone https://github.com/FMillerH/howard-engine.git
-cd howard-engine
-cmake -B build
-cmake --build build
-./build/H03_01
-```
-
-AddressSanitizer and UBSan flags are present in `CMakeLists.txt`, commented out. Uncomment
-the `target_compile_options` / `target_link_options` lines to build with them.
-
----
-
 ## Repository layout
 
 Entry point is **`main.cpp`** at the repository root. It calls one of the window functions
