@@ -79,7 +79,9 @@ in a future build.
 ## Repository layout
 
 Entry point is **`main.cpp`** at the repository root. It calls one of the window functions
-in `Windows/`, each of which is a separate runnable demo.
+in `Windows/`, each of which is a separate runnable demo. Note that many of these
+potential demonstrations are future projects that will updated as I find time to do so,
+meaning much of the 2D and 3D demos have yet to be committed.
 
 ```
 howard-engine/
