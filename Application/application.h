@@ -10,7 +10,14 @@ private:
     int currentFakeButton = -1;
     Rectangle border;
     Controller controller;
+
     bool getWindowDelta();
+
+
+
+
+    void containerTest();
+    std::vector<Container*> fakeMenus;
 
 
 public:

@@ -6,6 +6,7 @@ Application::Application(float windowWidth, float windowHeight) :
 border(50, 50, windowWidth - 100, windowHeight - 100)
 {
     initDevController();
+    containerTest();
 }
 
 void Application::update(int w, int h) {
@@ -21,22 +22,13 @@ void Application::update(int w, int h) {
 
 void Application::draw() {
     DrawRectangleLinesEx(border, 1.0, RED);
+
+    for (Container* container : fakeMenus) {
+        container->drawContainer();
+    }
 }
 
-void Application::initDevController() {
-    controller.initKeyBindings(264,  [this]() {
-        std::cout << "down: null instruction" << std::endl;
-        setPreSelectedButton(1);
-        std::cout << currentFakeButton << std::endl;
-    });
-
-    controller.initKeyBindings(265,  [this]() {
-        std::cout << "up: null instruction" << std::endl;
-        setPreSelectedButton(-1);
-        std::cout << currentFakeButton << std::endl;
-    });
-
-}
+void Application::initDevController() {}
 
 void Application::setPreSelectedButton(const int i) {
     currentFakeButton += i;
@@ -55,4 +47,18 @@ bool Application::getWindowDelta() {
         return true;
     }
     return false;
+}
+
+void Application::containerTest() {
+    std::vector<Container*> containers;
+    std::vector colors = {PURPLE, YELLOW, GREEN};
+
+
+    for (int i = 0; i < 8; i++) {
+        auto* container = new Container(i*100, i*100, 100, 100, colors[i%3]);
+        container->setVisible();
+        containers.push_back(container);
+    }
+
+    fakeMenus = containers;
 }

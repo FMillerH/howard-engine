@@ -12,10 +12,10 @@ mouse()
     initializeNavigationTable();
     //init0();
 
-    controller.initKeyBindings(262, [](){ std::cout << "right" << std::endl; });
-    controller.initKeyBindings(263, [](){ std::cout << "left" << std::endl; });
-    controller.initKeyBindings(264, [](){ std::cout << "down" << std::endl; });
-    controller.initKeyBindings(265, [](){ std::cout << "up" << std::endl; });
+    controller.initKeyBindings(262, [](){ std::cout << "right" << std::endl; }, Controller::ModNone);
+    controller.initKeyBindings(263, [](){ std::cout << "left" << std::endl; }, Controller::ModNone);
+    controller.initKeyBindings(264, [](){ std::cout << "down" << std::endl; }, Controller::ModNone);
+    controller.initKeyBindings(265, [](){ std::cout << "up" << std::endl; }, Controller::ModNone);
 }
 
 void UIenv::init0() {

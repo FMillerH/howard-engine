@@ -8,10 +8,27 @@ void Controller::initKeyBindings(const int k, std::function<void()> f) {
     keyBindings[k] = std::move(f);
 }
 
+void Controller::initKeyBindings(const int k, std::function<void()> f, int mods) {
+    keyBindings[makeCombo(k, mods)] = std::move(f);
+}
+
 void Controller::scanKeyBindings() {
-    for (auto& [key, func] : keyBindings) {
-        if (IsKeyPressed(key)) { func(); }
+    int key = GetKeyPressed();
+
+    while (key != 0) {
+        auto it = keyBindings.find(makeCombo(key, currentMods()));
+        if (it != keyBindings.end()) {
+            it->second();
+        }
+
+        key = GetKeyPressed();
     }
+}
+
+int Controller::currentMods() {
+    int mods = ModNone;
+    if (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT)) mods |= ModShift;
+    return mods;
 }
 
 Vector2 Controller::getMouse() { return GetMousePosition(); }
