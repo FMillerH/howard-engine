@@ -74,6 +74,8 @@ add_executable(H03_01 main.cpp
         Application/application.h
         Windows/PathSandbox/Tests/tests.cpp
         Windows/PathSandbox/Tests/tests.h
+        Application/loader.cpp
+        Application/loader.h
 )
 
 #target_compile_options(H03_01 PRIVATE -fsanitize=address -fsanitize=undefined)

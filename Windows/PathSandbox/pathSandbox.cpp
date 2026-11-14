@@ -17,8 +17,11 @@ void runSandboxPath() {
     int height = 800;
 
     InitWindow(width, height, "Raylib + C++ Example");
+    SetWindowMinSize(300, 200);
+
 
     std::unique_ptr<Application> app = std::make_unique<Application>(width, height);
+
 
     while (!WindowShouldClose()) {
 
@@ -28,13 +31,16 @@ void runSandboxPath() {
 
 
 
+
         BeginDrawing();
         ClearBackground(BLACK);
 
+        //BeginScissorMode(200, 200, 600, 400); //todo
+
+
         app->draw();
 
-
-
+        //EndScissorMode();
         EndDrawing();
     }
 

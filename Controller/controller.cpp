@@ -1,4 +1,7 @@
 #include "controller.h"
+
+#include <iostream>
+
 #include "raylib.h"
 
 Controller::Controller() = default;
@@ -21,9 +24,20 @@ void Controller::scanKeyBindings() {
             it->second();
         }
 
+        else { std::cout << "invalid input: " << makeCombo(key, currentMods()) << std::endl; }
+
         key = GetKeyPressed();
     }
 }
+
+/* scanKeyBindings() enters a while loop for any key that is pressed.
+ * makeCombo(key, currentMods()) takes the integer value of the key that was pressed
+ *  and calls currentMods(), which performs a bitwise operation depending on whether
+ *  a SHIFT key was being held down at the time.
+ * In short, a big number is generated each time a key or combination of keys is pressed.
+ * This "number" should match the ID of a hardcoded key binding declared elsewhere,
+ *  triggering the shortcut.
+ */
 
 int Controller::currentMods() {
     int mods = ModNone;
